@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+body {
+  overflow-x: hidden;
+
+  background-color: white;
+  color: black;
+
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+.dark body {
+  background-color: #111827; /* gray-900 */
+  color: white;
+}
