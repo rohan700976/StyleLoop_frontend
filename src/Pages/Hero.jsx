@@ -39,13 +39,13 @@ const squareData = [
   { id: 16, src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1820&q=80" },
 ];
 
-const generateSquares = () => {
-  return shuffle(squareData).map((sq) => (
+const generateSquares = (count = 16) => {
+  return shuffle([...squareData]).slice(0, count).map((sq) => (
     <motion.div
       key={sq.id}
       layout
       transition={{ duration: 1.5, type: "spring" }}
-      className="w-full h-full rounded-lg overflow-hidden"
+      className="w-full h-full rounded-2xl overflow-hidden shadow-sm"
       style={{
         backgroundImage: `url(${sq.src})`,
         backgroundSize: "cover",
@@ -57,21 +57,39 @@ const generateSquares = () => {
 
 const ShuffleGrid = () => {
   const timeoutRef = useRef(null);
-  const [squares, setSquares] = useState(generateSquares());
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+  const [squares, setSquares] = useState([]);
 
   useEffect(() => {
-    shuffleSquares();
-    return () => clearTimeout(timeoutRef.current);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const getCardCount = () => {
+    if (windowWidth < 640) return 6;
+    if (windowWidth < 1024) return 12;
+    return 16;
+  };
+
+  useEffect(() => {
+    setSquares(generateSquares(getCardCount()));
+    shuffleSquares();
+    return () => clearTimeout(timeoutRef.current);
+  }, [windowWidth]);
+
   const shuffleSquares = () => {
-    setSquares(generateSquares());
+    setSquares(generateSquares(getCardCount()));
     timeoutRef.current = setTimeout(shuffleSquares, 3000);
   };
 
   return (
-    <div className="  mt-14 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mt- grid-rows-4 gap-4
-     h-[400px] sm:h-[500px] md:h-[600px] w-full">
+    <div className={`grid gap-3 sm:gap-4 w-full max-w-full lg:max-w-5xl mx-auto mt-10 lg:mt-0 px-2 sm:px-4
+      ${windowWidth < 640 
+        ? "grid-cols-2 grid-rows-3 h-[320px]" 
+        : windowWidth < 1024
+          ? "grid-cols-3 grid-rows-4 h-[420px]"
+          : "grid-cols-4 grid-rows-4 h-[550px]"}`}>
       {squares}
     </div>
   );
@@ -94,37 +112,55 @@ const Hero = () => {
   return (
     <motion.section
       style={{ backgroundImage }}
-      className="w-full h-screen  px-4 sm:px-6 md:px-12 py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 items-center gap-8 text-gray-200"
+      className="relative w-full min-h-screen lg:h-screen flex flex-col lg:grid lg:grid-cols-2 items-center justify-center px-6 sm:px-16 lg:px-24 py-20 lg:py-0 gap-12 lg:gap-24 text-gray-200 overflow-x-hidden"
     >
-      <div className="space-y-4 text-center md:text-left">
+      <div className="space-y-6 lg:space-y-8 text-center lg:text-left z-10 max-w-2xl lg:max-w-3xl mx-auto lg:mx-0">
         <TrueFocus
-          className="block mb-4 text-2xl sm:text-3xl md:text-4xl font-medium"
+          className="inline-block text-lg sm:text-2xl lg:text-3xl font-bold tracking-tight"
           style={{ color: "rgb(30, 229, 233)" }}
           sentence="Style Meets Comfort"
           manualMode={false}
           blurAmount={5}
-          borderColor="red"
+          borderColor="rgb(30, 229, 233)"
           animationDuration={2}
           pauseBetweenAnimations={0}
         />
-        <GradientText
-          colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
-          animationSpeed={3}
-          showBorder={false}
-          className="custom-class"
-        >
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold">
-            Affordable Fashion for Every Occasion
-          </h3>
-        </GradientText>
+        
+        <div className="relative">
+          <GradientText
+            colors={["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C", "#13FFAA"]}
+            animationSpeed={5}
+            showBorder={false}
+            className="leading-none"
+          >
+            <h1 className="text-4xl sm:text-6xl md:text-6xl lg:text-6xl xl:text-7xl font-extrabold tracking-tighter">
+              Affordable Fashion <br className="hidden sm:block" /> For Every Occasion
+            </h1>
+          </GradientText>
+        </div>
 
-        <p className="text-sm sm:text-base md:text-lg text-slate-300 my-4 md:my-6">
-          Discover the latest arrivals in men's and women's fashion. From everyday essentials to standout statement pieces — redefine your style effortlessly.
+        <p className="text-sm sm:text-lg lg:text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          Step into StyleLoop's premium collection. Where high-end quality meets ultimate comfort. Discover your own definition of style today.
         </p>
+
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center lg:justify-start pt-4">
+          <button className="w-full sm:w-auto px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-xl shadow-blue-500/20 active:scale-95">
+            Shop Collection
+          </button>
+          <button className="w-full sm:w-auto px-10 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl border border-white/10 backdrop-blur-sm transition-all active:scale-95">
+            View Lookbook
+          </button>
+        </div>
       </div>
 
-      <div className="w-full">
+      <div className="w-full flex items-center justify-center lg:h-full">
         <ShuffleGrid />
+      </div>
+
+      {/* Decorative Elements - Contain strictly to stop "shaking" */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-600/5 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-pink-600/5 rounded-full blur-[120px]"></div>
       </div>
     </motion.section>
   );

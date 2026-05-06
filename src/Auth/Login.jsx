@@ -59,37 +59,41 @@ function Login() {
   return (
     <form
       onSubmit={handleLogin}
-      className="bg-white flex items-center justify-center flex-col px-12 h-full text-center"
+      className="bg-white flex flex-col justify-center w-full max-w-md mx-auto text-center h-full"
     >
-      <h1 className="font-bold text-2xl m-0">Sign in</h1>
+      <h1 className="font-extrabold text-3xl lg:text-4xl text-slate-900 mb-6 lg:mb-8">Sign In</h1>
 
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Email"
-        className="bg-gray-200 py-3 px-4 my-2 w-full"
-        required
-      />
+      <div className="space-y-4 w-full">
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          className="w-full bg-slate-50 text-slate-900 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400"
+          required
+        />
 
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Password"
-        className="bg-gray-200 py-3 px-4 my-2 w-full"
-        required
-      />
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
+          className="w-full bg-slate-50 text-slate-900 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400"
+          required
+        />
+      </div>
 
-      <a href="#" className="text-gray-700 text-sm my-4">
-        Forgot your password?
-      </a>
+      <div className="flex justify-end mt-4 mb-8 lg:mb-10 w-full">
+        <a href="#" className="text-blue-600 text-sm font-medium hover:text-blue-700 hover:underline">
+          Forgot your password?
+        </a>
+      </div>
 
       <button
         type="submit"
-        className="rounded-full bg-blue-500 text-white text-xs font-bold py-3 px-12 tracking-wider uppercase active:scale-95"
+        className="w-full rounded-xl bg-blue-600 text-white font-bold py-3.5 px-4 uppercase tracking-wide hover:bg-blue-700 transition-all active:scale-[0.98] shadow-md shadow-blue-600/20"
       >
         Sign In
       </button>

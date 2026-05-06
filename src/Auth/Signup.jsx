@@ -67,57 +67,60 @@ function Signup() {
   return (
     <form
       onSubmit={handleSignUp}
-      className="bg-white flex items-center justify-center flex-col px-12 h-full text-center">
-      <h1 className="font-bold text-2xl m-0">Create Account</h1>
-      <input
-        type="text"
-        value={signup.name}
-        onChange={(e) => SetSignup({ ...signup, name: e.target.value })}
-        placeholder="Name"
-        className="bg-gray-200 py-3 px-4 my-2 w-full"
-      />
+      className="bg-white flex flex-col justify-center w-full max-w-md mx-auto text-center h-full"
+    >
+      <h1 className="font-extrabold text-3xl lg:text-4xl text-slate-900 mb-6 lg:mb-8">Create Account</h1>
 
-      <input
-        type="email"
-        value={signup.email}
-        onChange={(e) => SetSignup({ ...signup, email: e.target.value })}
-        placeholder="Email"
-        className="bg-gray-200 py-3 px-4 my-2 w-full"
-      />
+      <div className="space-y-4 w-full">
+        <input
+          type="text"
+          value={signup.name}
+          onChange={(e) => SetSignup({ ...signup, name: e.target.value })}
+          placeholder="Full Name"
+          className="w-full bg-slate-50 text-slate-900 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400"
+        />
 
-      <input
-        type="password"
-        value={signup.password}
-        onChange={(e) => SetSignup({ ...signup, password: e.target.value })}
-        placeholder="Password"
-        className="bg-gray-200 py-3 px-4 my-2 w-full"
-      />
+        <input
+          type="email"
+          value={signup.email}
+          onChange={(e) => SetSignup({ ...signup, email: e.target.value })}
+          placeholder="Email Address"
+          className="w-full bg-slate-50 text-slate-900 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400"
+        />
 
-      <input
-        type="number"
-        value={signup.mobileNo}
-        onChange={(e) => SetSignup({ ...signup, mobileNo: e.target.value })}
-        placeholder="Enter your mobile number"
-        className="bg-gray-200 py-3 px-4 my-2 w-full"
-      />
+        <input
+          type="password"
+          value={signup.password}
+          onChange={(e) => SetSignup({ ...signup, password: e.target.value })}
+          placeholder="Password"
+          className="w-full bg-slate-50 text-slate-900 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400"
+        />
 
-      <input
-        type="text"
-        value={signup.address}
-        onChange={(e) => SetSignup({ ...signup, address: e.target.value })}
-        placeholder="Enter your current address"
-        className="bg-gray-200 py-3 px-4 my-2 w-full"
-      />
+        <input
+          type="number"
+          value={signup.mobileNo}
+          onChange={(e) => SetSignup({ ...signup, mobileNo: e.target.value })}
+          placeholder="Mobile Number"
+          className="w-full bg-slate-50 text-slate-900 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400"
+        />
 
+        <input
+          type="text"
+          value={signup.address}
+          onChange={(e) => SetSignup({ ...signup, address: e.target.value })}
+          placeholder="Current Address"
+          className="w-full bg-slate-50 text-slate-900 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all placeholder:text-slate-400"
+        />
+      </div>
 
       <button
-        type='submit'
-        className="rounded-full  bg-blue-400 text-white text-xs font-bold py-3 px-12 tracking-wider uppercase active:scale-95" >
-
+        type="submit"
+        className="w-full mt-8 lg:mt-10 rounded-xl bg-blue-600 text-white font-bold py-3.5 px-4 uppercase tracking-wide hover:bg-blue-700 transition-all active:scale-[0.98] shadow-md shadow-blue-600/20"
+      >
         Sign Up
       </button>
     </form>
-  )
+  );
 }
 
 export default Signup;
