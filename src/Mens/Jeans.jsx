@@ -8,7 +8,7 @@ function Jeans() {
    
     const handleProductDetails=async()=>{
       try {
-         const response = await axios.get('http://localhost:8000/mensjeans/jeans');
+         const response = await axios.get('https://styleloopapi.onrender.com/mensjeans/jeans');
          console.log(response);
          if(response.status==200){
           setJeansDetails(response.data);
